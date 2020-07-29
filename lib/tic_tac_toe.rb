@@ -43,12 +43,10 @@ def turn(board)
   display_board(board)
 end
 
-#CHECK FOR EMPTY SPACE
 def position_taken?(board, index)
   !(board[index].nil? || board[index] == " ")
 end
 
-#IS # CORRECT & SPACE EMPTY?
 def valid_move?(board, index)
 
   if index.between?(0,8) && !position_taken?(board, index)
@@ -59,7 +57,6 @@ def valid_move?(board, index)
   end
 end
 
-#COUNTER FOR PLAYER ASSESMENT
 def turn_count(board)
   counter = 0
   board.each do |space|
@@ -70,7 +67,6 @@ end
 return counter
 end
 
-#WHICH PLAYER IS THIS?
 def current_player(board)
   if turn_count(board)%2 ==0
     current_player = "X"
@@ -80,25 +76,16 @@ end
 return current_player
 end
 
-
-#MAKE MOVE ON BOARD
 def move(board, index, token)
   board[index] = token
   play(board)
   
 end
 
-
-
-
-
-#HAS ANYONE WON? return false if no. return win_combo if yes
 def won?(board)
   WIN_COMBINATIONS.each do |win_combo|
-    #check for player 1 win
     if check_win_combination?(board, 'X', win_combo)
       return win_combo
-      #check for player 2 win
     elsif check_win_combination?(board, 'O', win_combo)
       return win_combo
     else
@@ -107,14 +94,12 @@ def won?(board)
   end
 end
 
-#CHECK WINNING COMBOS
 def check_win_combination?(board, player, win_combo)
   win_combo.all? do |position|
     board[position] == player
   end
 end
 
-#IS BOARD FULL? 
 def full?(board)
   if board.include?(' ') || board.include?('')
     return false
@@ -123,14 +108,12 @@ else
   end
 end
 
-#IS THERE A DRAW?
 def draw?(board)
   if !won?(board) && full?(board)
     return true
   end
 end
 
-#HAS SOMETHING HAPPENED?
 def over?(board)
   puts 'is it over?'
   if won?(board) || draw?(board) || full?(board)
@@ -141,7 +124,6 @@ def over?(board)
   end
 end
 
-#WHO WON?
 def winner(board)
   if !won?(board)
     return nil
